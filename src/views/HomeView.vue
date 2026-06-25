@@ -10,12 +10,12 @@ import ProductGallery from '@/components/ProductGallery.vue'
       <div class="bg-holder overlay overlay-light" style="background-image:url(/src/assets/img/gallery/header-bg.png);background-size:cover;">
       </div>
 
-      <div class="container">
+      <div class="container" style="background-color:rebeccapurples;">
         <div class="row flex-center">
           <div class="col-12 mb-10 text-center">
             <div class="d-flex align-items-center flex-column">
-              <h1 class="text-white text-uppercase fw-bold fs-2 fs-lg-4" style="letter-spacing:0.12em;">Zapatillas para cada paso de tu día</h1>
-              <h1 class="text-white text-uppercase fw-bold fs-3 fs-lg-7" style="letter-spacing:0.08em;">Estilo deportivo y comodidad en cada modelo</h1>
+              <h1 class="text-black text-uppercase fw-bold fs-2 fs-lg-4" style="letter-spacing:0.12em;">Zapatillas para cada paso de tu día</h1>
+              <h1 class="text-black text-uppercase fw-bold fs-3 fs-lg-7" style="letter-spacing:0.08em;">Estilo deportivo y comodidad en cada modelo</h1>
             </div>
           </div>
         </div>
