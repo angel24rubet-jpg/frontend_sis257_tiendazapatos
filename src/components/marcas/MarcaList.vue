@@ -63,20 +63,22 @@ const onMarcaGuardada = () => {
 }
 
 onMounted(() => cargarMarcas())
+
+
 </script>
 
 <template>
   <div class="list-container">
     <div class="list-header">
       <div>
-        <h1 class="page-title">Colores</h1>
-        <p class="page-subtitle">Gestión de colores para productos</p>
+      <h1 class="page-title">Marcas</h1>
+      <p class="page-subtitle">Gestión de marcas para productos</p>
       </div>
       <button class="btn-action" @click="abrirModalCrear">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 5v14M5 12h14"/>
         </svg>
-        Nuevo Color
+        Nueva Marca
       </button>
     </div>
 
@@ -91,7 +93,7 @@ onMounted(() => cargarMarcas())
           v-model="busqueda"
           type="text"
           class="search-input"
-          placeholder="Buscar color..."
+          placeholder="Buscar marca..."
         />
         <button v-if="busqueda" @click="busqueda = ''" class="search-clear">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -106,50 +108,33 @@ onMounted(() => cargarMarcas())
         <thead>
           <tr>
             <th>ID</th>
-            <th>Vista Previa</th>
             <th>Nombre</th>
-            <th>Código Hex</th>
+            <th>Descripción</th>
             <th class="text-end">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="color in coloresFiltrados" :key="color.id">
+          <tr v-for="marca in marcasFiltradas" :key="marca.id">
             <td>
-              <span class="id-badge">#{{ color.id }}</span>
+              <span class="id-badge">#{{ marca.id }}</span>
             </td>
-            <td>
-              <div class="color-preview">
-                <div
-                  class="color-swatch"
-                  :style="{ backgroundColor: color.codigoHex || '#ccc' }"
-                ></div>
-                <div class="color-ring" :style="{ borderColor: color.codigoHex || '#ccc' }"></div>
-              </div>
-            </td>
-            <td class="fw-medium">{{ color.nombre }}</td>
-            <td>
-              <span class="hex-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-                </svg>
-                {{ color.codigoHex || '-' }}
-              </span>
-            </td>
+            <td class="fw-medium">{{ marca.nombre }}</td>
+            <td>{{ marca.descripcion || '-' }}</td>
             <td class="actions-cell">
-              <button class="btn-icon btn-edit" @click="abrirModalEditar(color)" title="Editar">
+              <button class="btn-icon btn-edit" @click="abrirModalEditar(marca)" title="Editar">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                 </svg>
               </button>
-              <button class="btn-icon btn-delete" @click="eliminarColor(color.id)" title="Eliminar">
+              <button class="btn-icon btn-delete" @click="eliminarMarca(marca.id)" title="Eliminar">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                 </svg>
               </button>
             </td>
           </tr>
-          <tr v-if="coloresFiltrados.length === 0 && busqueda">
+          <tr v-if="marcasFiltradas.length === 0 && busqueda">
             <td colspan="5" class="empty-state">
               <div class="empty-content">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -160,8 +145,8 @@ onMounted(() => cargarMarcas())
               </div>
             </td>
           </tr>
-          <tr v-if="colores.length === 0 && !busqueda">
-            <td colspan="5" class="empty-state">
+          <tr v-if="marcas.length === 0 && !busqueda">
+            <td colspan="3" class="empty-state">
               <div class="empty-content">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
                   <circle cx="13.5" cy="6.5" r="2.5"/>
@@ -170,7 +155,7 @@ onMounted(() => cargarMarcas())
                   <circle cx="6.5" cy="12.5" r="2.5"/>
                   <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"/>
                 </svg>
-                <p>No hay colores registrados</p>
+                <p>No hay marcas registradas</p>
               </div>
             </td>
           </tr>
@@ -180,17 +165,17 @@ onMounted(() => cargarMarcas())
       <!-- Contador de registros -->
       <div class="table-footer">
         <span class="records-count">
-          Mostrando {{ coloresFiltrados.length }} de {{ colores.length }} registros
+          Mostrando {{ marcasFiltradas.length }} de {{ marcas.length }} registros
         </span>
       </div>
     </div>
 
     <!-- Modal -->
-    <ColorSave
+    <MarcaSave
       :show="showModal"
-      :color="colorSeleccionado"
+      :marca="marcaSeleccionada"
       @close="cerrarModal"
-      @saved="onColorGuardado"
+      @saved="onMarcaGuardada"
     />
   </div>
 </template>

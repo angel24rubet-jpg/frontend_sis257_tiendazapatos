@@ -601,19 +601,20 @@ function isStepCompleted(pedido: any, step: string): boolean {
 
 // Edit Profile
 function openEditModal() {
-  form.nombre = cliente.value?.nombre || ''
-  form.apellido = cliente.value?.apellido || ''
-  form.telefono = cliente.value?.telefono || ''
-  form.cedula = cliente.value?.cedula || ''
-  form.genero = cliente.value?.genero || ''
+  form.nombre = cliente.value?.nombre ?? ''
+  form.apellido = cliente.value?.apellido ?? ''
+  form.telefono = cliente.value?.telefono ?? ''
+  form.cedula = cliente.value?.cedula ?? ''
+  form.genero = cliente.value?.genero ?? ''
   // Formatear fecha para input date (YYYY-MM-DD)
   if (cliente.value?.fechaNacimiento) {
     const fecha = new Date(cliente.value.fechaNacimiento)
-    form.fechaNacimiento = fecha.toISOString().split('T')[0]
+    const isoString = fecha.toISOString()
+    form.fechaNacimiento = isoString.split('T')[0] || ''
   } else {
     form.fechaNacimiento = ''
   }
-  form.direccion = cliente.value?.direccion || ''
+  form.direccion = cliente.value?.direccion ?? ''
   showEditModal.value = true
   document.body.style.overflow = 'hidden'
 }

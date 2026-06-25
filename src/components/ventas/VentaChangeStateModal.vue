@@ -80,7 +80,7 @@ const stateOptions: Record<string, StateOption> = {
   }
 }
 
-const availableStates = computed(() => {
+const availableStates = computed((): string[] => {
   if (!props.venta) return []
   return Object.keys(stateOptions).filter((estado) => estado !== props.venta!.estado)
 })
@@ -205,13 +205,13 @@ const cerrarModal = () => {
                   <span>Estado actual</span>
                   <strong>{{ estadoFormato[venta.estado] }}</strong>
                 </div>
-                <div v-if="props.venta?.numeroSeguimiento" class="summary-row">
+                <div v-if="venta?.numeroSeguimiento" class="summary-row">
                   <span>Seguimiento</span>
-                  <span>{{ props.venta.numeroSeguimiento }}</span>
+                  <span>{{ venta?.numeroSeguimiento }}</span>
                 </div>
-                <div v-if="props.venta?.fechaEnvio" class="summary-row">
+                <div v-if="venta?.fechaEnvio" class="summary-row">
                   <span>Fecha envío</span>
-                  <span>{{ formatDate(props.venta.fechaEnvio) }}</span>
+                  <span>{{ formatDate(venta?.fechaEnvio) }}</span>
                 </div>
               </div>
 
@@ -224,11 +224,11 @@ const cerrarModal = () => {
                   :class="['state-option', { selected: selectedState === estado } ]"
                 >
                   <div class="option-header">
-                    <span class="option-icon">{{ stateOptions[estado].icon }}</span>
-                    <span class="option-label">{{ stateOptions[estado].label }}</span>
+                    <span class="option-icon">{{ stateOptions[estado]?.icon }}</span>
+                    <span class="option-label">{{ stateOptions[estado]?.label }}</span>
                   </div>
                   <div class="option-description">
-                    {{ stateOptions[estado].description }}
+                    {{ stateOptions[estado]?.description }}
                   </div>
                 </button>
               </div>

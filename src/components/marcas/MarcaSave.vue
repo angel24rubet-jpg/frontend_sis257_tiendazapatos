@@ -170,7 +170,7 @@ const cerrarModal = () => {
   border: 1px solid rgba(94, 146, 255, 0.18);
 }
 
-..modal-header {
+.modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;

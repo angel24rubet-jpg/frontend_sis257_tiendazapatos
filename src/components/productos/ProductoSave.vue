@@ -84,7 +84,8 @@ watch(
           if (Array.isArray(tallaExistente)) {
             tallasSeleccionadas.value = tallaExistente
           } else {
-            tallasSeleccionadas.value = tallaExistente.split(',').map((t: string) => t.trim()).filter((t: string) => t)
+            const tallaString = tallaExistente as string
+            tallasSeleccionadas.value = tallaString.split(',').map((t: string) => t.trim()).filter((t: string) => t)
           }
         } else {
           tallasSeleccionadas.value = []
